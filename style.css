@@ -1,0 +1,22 @@
+body {
+  overflow: hidden;
+  margin: 0;
+}
+
+
+#map {
+  width: 100vw;
+  height: 100vh;
+}
+
+.custom-popup .mapboxgl-popup-content {
+  background-color: white; /* Set a solid background color */
+  opacity: 0.75; /* Fully opaque */
+  border-radius: 8px; /* Optional: rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Optional: shadow effect */
+  color: blue; /* Text color */
+}
+
+.custom-popup .mapboxgl-popup-tip {
+  background-color: white; /* Match the pop-up arrow color with the content */
+}
