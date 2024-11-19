@@ -1,7 +1,7 @@
-// ADD YOUR MAPBOX ACCESS TOKEN
+// ADD YOUR MAPBOX ACCESS TOKEN 
 mapboxgl.accessToken = "pk.eyJ1IjoibGl1eWYyMyIsImEiOiJjbTB2YWsxOXcxYmRnMmtweGs0NnBlanI0In0.jCm_cti9TONkgaSYCT-Srg"
 
-// CREATE A NEW OBJECT CALLED MAP
+// CREATE A NEW OBJECT CALLED MAP 
 const map = new mapboxgl.Map({
   container: "map", // container ID for the map object (this points to the HTML element)
   style: "mapbox://styles/liuyf23/cm0vclne1007401ntd2rk098n", //YOUR STYLE URL
@@ -12,13 +12,13 @@ const map = new mapboxgl.Map({
 
 
 map.on('load', () => {
-  // Add a GeoJSON source from the API endpoint
+  // Add a GeoJSON source from the API endpoint 
   map.addSource('mongoLayer', {
     type: 'geojson',
     data: 'https://lab8-11485-d24492e3c3ec.herokuapp.com/api/geojson' // Replace with your API endpoint
   });
 
-  // Add a layer to display the MongoDB data
+  // Add a layer to display the MongoDB data 
   map.addLayer({
     id: 'mongoLayer',
     type: 'circle', // You can change this to 'line' or 'fill' based on your data
@@ -29,15 +29,14 @@ map.on('load', () => {
     }
   });
 
-
-  // Step 3: Create a pop-up instance
+  // Step 3: Create a pop-up instance 
     const popup = new mapboxgl.Popup({
       closeButton: false, // Disable close button
       closeOnClick: false, // Keep pop-up open when clicking elsewhere
       className: 'custom-popup' // Add your custom class name
   });
 
-  // Step 4: Add mouseenter event to show the pop-up
+  // Step 4: Add mouseenter event to show the pop-up 
   map.on('mouseenter', 'mongoLayer', (e) => {
       // Change the cursor to a pointer to indicate interactivity
       map.getCanvas().style.cursor = 'pointer';

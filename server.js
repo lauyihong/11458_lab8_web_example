@@ -1,9 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
 const app = express();
-
 const port = process.env.PORT || 3000;
 
 app.use(cors());
@@ -38,6 +36,42 @@ const geoSchema = new mongoose.Schema({
 
 // Define the model with the specified schema
 const GeoModel = mongoose.model('GeoModel', geoSchema);
+
+const bodyParser = require('body-parser');
+
+// Middleware to parse form data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const formSchema = new mongoose.Schema({
+  name: { type: String, required: true },  // 必填
+  lon: { type: Number, required: true },  // 经度
+  lat: { type: Number, required: true },  // 纬度
+  notes: { type: String }                 // 可选备注
+});
+
+const FormData = mongoose.model('FormData', formSchema);
+
+app.get('/form', (req, res) => {
+  res.sendFile(__dirname + '/form.html');
+});
+
+app.post('/submit', async (req, res) => {
+  const formData = new FormData({
+      name: req.body.name,
+      lon: req.body.lon,
+      lat: req.body.lat,
+      notes: req.body.notes || '' // 若未填写备注，存储为空字符串
+  });
+
+  try {
+      await formData.save();
+      res.send('Location data saved to MongoDB!');
+  } catch (err) {
+      res.status(500).send('Error saving data');
+  }
+});
+
 
 // API endpoint to get all GeoJSON data
 app.get('/api/geojson', async (req, res) => {
